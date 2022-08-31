@@ -12,7 +12,7 @@ resource "aws_subnet" "subnet" {
   vpc_id                  = aws_vpc.my-vpc.id
   cidr_block              = "10.0.1.0/24"
   map_public_ip_on_launch = "true" # This is what makes it a public subnet
-  availability_zone       = var.availability_zone
+  availability_zone       = "us-east-1"
   tags = {
     Name = "public-subnet"
   }
@@ -45,10 +45,10 @@ resource "aws_route_table_association" "subnet-associate" {
 }
 
 # Creating security group or firewall
-resource  "aws_security_group" "efs_firewall" {
-  name          = "allow"
+resource "aws_security_group" "efs_firewall" {
+  name        = "allow"
   description = "Allow TLS inbound traffic"
-  vpc_id        = aws_vpc.my-vpc.id
+  vpc_id      = aws_vpc.my-vpc.id
 
   ingress {
     description = "SSH"
